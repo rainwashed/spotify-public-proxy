@@ -7,6 +7,8 @@ import uvicorn
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 from spotify import API_URL, get_access_token
 from starlette.applications import Starlette
+from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 from starlette.routing import Route
@@ -44,7 +46,15 @@ app = Starlette(
     routes=[
         Route("/.health/", healthcheck, methods=["GET"]),
         Route("/{rest_of_path:path}", proxy_to_spotify, methods=["GET"]),
-    ]
+    ],
+    middleware=[
+        Middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_methods=["GET"],
+            allow_headers=["*"],
+        )
+    ],
 )
 
 if __name__ == "__main__":
