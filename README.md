@@ -27,3 +27,6 @@ export SPOTIFY_CLIENT_SECRET="..."
 
 ### Send a request
 Simply change the `https://api.spotify.com` with your instance URL. eg `https://your.spotify.proxy.com/v1/users/{user_id}/playlists/{playlist_id}`
+
+### rainwashed's contributions
+- made it so the CORS policy is for all routes.
